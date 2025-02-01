@@ -181,4 +181,5 @@ const LockerDoor = styled.div<{ $isOpen?: boolean }>`
   font-weight: bold;
   transition: background 0.3s ease;
   border-top: 2px solid #34495e;
+  padding-bottom: 10px;
 `;
