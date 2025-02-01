@@ -23,10 +23,17 @@ function isLockerArray(data: unknown): data is Locker[] {
     )
   );
 }
-export default function StyledLockers({ lockers }: LockersProps) {
-  const [lockersLive, setLockers] = useState(lockers);
+export default function StyledLockers() {
+  const [lockersLive, setLockers] = useState<Locker[]>([]);
   // const [socket, setSocket] = useState<WebSocket | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data: Locker[] = await fetchLockers();
+      setLockers(data);
+    };
 
+    fetchData();
+  }, []);
   // useEffect(() => {
   //   // Utwórz połączenie WebSocket
   //   const newSocket = new WebSocket(
