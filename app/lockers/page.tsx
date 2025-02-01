@@ -15,7 +15,6 @@ export default async function LockersPage() {
 
   return (
     <div>
-      <h1>Lista szafek</h1>
       <StyledLockers lockers={lockers} />
     </div>
   );

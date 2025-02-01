@@ -27,37 +27,37 @@ export default function StyledLockers({ lockers }: LockersProps) {
   const [lockersLive, setLockers] = useState(lockers);
   const [socket, setSocket] = useState<WebSocket | null>(null);
 
-  useEffect(() => {
-    // Utwórz połączenie WebSocket
-    const newSocket = new WebSocket(
-      "ws://piomacho999.pythonanywhere.com/ws/lockers"
-    );
-    newSocket.onopen = () => {
-      console.log("WebSocket połączenie otwarte");
-    };
+  // useEffect(() => {
+  //   // Utwórz połączenie WebSocket
+  //   const newSocket = new WebSocket(
+  //     "ws://piomacho999.pythonanywhere.com/ws/lockers"
+  //   );
+  //   newSocket.onopen = () => {
+  //     console.log("WebSocket połączenie otwarte");
+  //   };
 
-    newSocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
+  //   newSocket.onmessage = (event) => {
+  //     const data = JSON.parse(event.data);
 
-      // Check if data.data is an array of Locker
-      if (isLockerArray(data.data)) {
-        setLockers(data.data);
-      } else {
-        console.error("Invalid data format received:", data);
-      }
-    };
+  //     // Check if data.data is an array of Locker
+  //     if (isLockerArray(data.data)) {
+  //       setLockers(data.data);
+  //     } else {
+  //       console.error("Invalid data format received:", data);
+  //     }
+  //   };
 
-    newSocket.onclose = () => {
-      console.log("WebSocket połączenie zamknięte");
-    };
+  //   newSocket.onclose = () => {
+  //     console.log("WebSocket połączenie zamknięte");
+  //   };
 
-    setSocket(newSocket);
+  //   setSocket(newSocket);
 
-    // Zamknij połączenie przy odmontowaniu komponentu
-    return () => {
-      newSocket.close();
-    };
-  }, []);
+  //   // Zamknij połączenie przy odmontowaniu komponentu
+  //   return () => {
+  //     newSocket.close();
+  //   };
+  // }, []);
 
   useEffect(() => {
     const intervalId = setInterval(async () => {
@@ -75,7 +75,7 @@ export default function StyledLockers({ lockers }: LockersProps) {
   return (
     <Dashboard>
       <Overlay />
-      <LockerTitle>Locker Dashboard</LockerTitle>
+      {/* <LockerTitle>Locker Dashboard</LockerTitle> */}
       <LockersContainer>
         {lockersLive.map((locker, index) => (
           <Locker key={index} onClick={() => console.log(index)}>
@@ -174,7 +174,7 @@ const LockerDoor = styled.div<{ $isOpen?: boolean }>`
   bottom: 0;
   width: 100%;
   height: 80%; /* Zwiększenie wysokości, aby było więcej miejsca na kod QR */
-  background: ${({ $isOpen }) => ($isOpen ? "#2ecc71" : "#95a5a6")};
+  background: ${({ $isOpen }) => ($isOpen ? "#2ecc71" : "#FA5F55")};
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   display: flex;
