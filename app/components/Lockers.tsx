@@ -11,9 +11,6 @@ interface Locker {
   is_available: boolean;
 }
 
-interface LockersProps {
-  lockers: Locker[];
-}
 function isLockerArray(data: unknown): data is Locker[] {
   return (
     Array.isArray(data) &&

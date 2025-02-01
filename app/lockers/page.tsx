@@ -1,10 +1,7 @@
 // app/page.tsx (główny plik aplikacji)
 
 import StyledLockers from "../components/Lockers";
-interface LockerType {
-  id: number;
-  is_available: boolean;
-}
+
 // app/lockers/page.tsx (serwerowy komponent LockersPage)
 // Funkcja asynchroniczna, która fetchuje dane o szafkach
 export default async function LockersPage() {
