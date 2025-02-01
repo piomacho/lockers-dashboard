@@ -26,7 +26,9 @@ export default function LockerItem({ locker }: { locker: LockerType }) {
 
         {/* Przykładowy kod QR */}
         {isHidden ? (
-          <ShowButton onClick={showAction}>Pokaż QR</ShowButton>
+          <ShowButton $isOpen={locker.is_available} onClick={showAction}>
+            Pokaż QR
+          </ShowButton>
         ) : (
           <QRCodeSVG value={`id=${locker.id}`} />
         )}
@@ -53,8 +55,8 @@ const Locker = styled.div<{ $isOpen?: boolean }>`
   }
 `;
 
-const ShowButton = styled.button`
-  background-color: #4caf50; /* Zielony kolor tła */
+const ShowButton = styled.button<{ $isOpen?: boolean }>`
+  background-color:  ${({ $isOpen }) => ($isOpen ? "#4caf50" : "#880808")},
   color: white; /* Biały kolor tekstu */
   border: none;
   border-radius: 5px;
