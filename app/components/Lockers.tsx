@@ -2,16 +2,16 @@
 "use client"; // Musi to być wkomponowane, aby zrozumiał, że to komponent kliencki
 
 import styled from "styled-components";
-import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 import { fetchLockers } from "./helper";
+import LockerItem from "./Locker";
 
-interface Locker {
+export interface LockerType {
   id: number;
   is_available: boolean;
 }
 
-function isLockerArray(data: unknown): data is Locker[] {
+function isLockerArray(data: unknown): data is LockerType[] {
   return (
     Array.isArray(data) &&
     data.every(
@@ -21,11 +21,11 @@ function isLockerArray(data: unknown): data is Locker[] {
   );
 }
 export default function StyledLockers() {
-  const [lockersLive, setLockers] = useState<Locker[]>([]);
+  const [lockersLive, setLockers] = useState<LockerType[]>([]);
   // const [socket, setSocket] = useState<WebSocket | null>(null);
   useEffect(() => {
     const fetchData = async () => {
-      const data: Locker[] = await fetchLockers();
+      const data: LockerType[] = await fetchLockers();
       setLockers(data);
     };
 
@@ -80,16 +80,8 @@ export default function StyledLockers() {
     <Dashboard>
       <Overlay />
       <LockersContainer>
-        {lockersLive.map((locker, index) => (
-          <Locker key={index} onClick={() => console.log(index)}>
-            <Light $isOpen={locker.is_available} />
-            <LockerDoor $isOpen={locker.is_available}>
-              <p>Szafka {locker.id}</p>
-              <p>{locker.is_available ? "Otwarta" : "Zamknięta"}</p>
-              {/* Przykładowy kod QR */}
-              <QRCodeSVG value={`id=${locker.id}`} />
-            </LockerDoor>
-          </Locker>
+        {lockersLive.map((locker) => (
+          <LockerItem key={locker.id} locker={locker} />
         ))}
       </LockersContainer>
     </Dashboard>
@@ -135,55 +127,4 @@ const LockersContainer = styled.div`
   @media (min-width: 1024px) {
     grid-template-columns: repeat(4, 1fr); /* 4 szafki w rzędzie na desktopie */
   }
-`;
-
-const Locker = styled.div<{ $isOpen?: boolean }>`
-  position: relative;
-  width: 180px; /* Zwiększenie szerokości */
-  height: 250px; /* Zwiększenie wysokości */
-  background: #2c3e50;
-  border-radius: 5px;
-  border: 2px solid #34495e;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.2s ease, background 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-    background: #3b4c62;
-  }
-`;
-
-const Light = styled.div<{ $isOpen?: boolean }>`
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 15px;
-  height: 15px;
-  background: ${({ $isOpen }) => ($isOpen ? "#27ae60" : "#c0392b")};
-  border-radius: 50%;
-  box-shadow: 0 0 10px ${({ $isOpen }) => ($isOpen ? "#2ecc71" : "#e74c3c")};
-  border: 1px solid #fff;
-`;
-
-const LockerDoor = styled.div<{ $isOpen?: boolean }>`
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 80%; /* Zwiększenie wysokości, aby było więcej miejsca na kod QR */
-  background: ${({ $isOpen }) => ($isOpen ? "#2ecc71" : "#FA5F55")};
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: background 0.3s ease;
-  border-top: 2px solid #34495e;
-  padding-bottom: 10px;
 `;
