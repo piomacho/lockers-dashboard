@@ -25,7 +25,7 @@ function isLockerArray(data: any): data is Locker[] {
 }
 export default function StyledLockers({ lockers }: LockersProps) {
   const [lockersLive, setLockers] = useState(lockers);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+  // const [socket, setSocket] = useState<WebSocket | null>(null);
 
   // useEffect(() => {
   //   // Utwórz połączenie WebSocket
@@ -75,7 +75,6 @@ export default function StyledLockers({ lockers }: LockersProps) {
   return (
     <Dashboard>
       <Overlay />
-      {/* <LockerTitle>Locker Dashboard</LockerTitle> */}
       <LockersContainer>
         {lockersLive.map((locker, index) => (
           <Locker key={index} onClick={() => console.log(index)}>
@@ -93,10 +92,6 @@ export default function StyledLockers({ lockers }: LockersProps) {
   );
 }
 
-const LockerTitle = styled.h1`
-  z-index: 1;
-  margin-bottom: 20px;
-`;
 const Dashboard = styled.div`
   display: flex;
   flex-direction: column;
@@ -186,13 +181,4 @@ const LockerDoor = styled.div<{ $isOpen?: boolean }>`
   font-weight: bold;
   transition: background 0.3s ease;
   border-top: 2px solid #34495e;
-`;
-
-const QRCodeImage = styled.img`
-  width: 100px; /* Rozmiar kodu QR */
-  height: 100px;
-  margin-top: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  background: white;
 `;
