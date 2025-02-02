@@ -56,7 +56,7 @@ const Locker = styled.div<{ $isOpen?: boolean }>`
 `;
 
 const ShowButton = styled.button<{ $isOpen?: boolean }>`
-  background-color:  ${({ $isOpen }) => ($isOpen ? "#4caf50" : "#880808")},
+  background-color: ${({ $isOpen }) => ($isOpen ? "#4caf50" : "#f12917")};
   color: white; /* Biały kolor tekstu */
   border: none;
   border-radius: 5px;
@@ -67,9 +67,8 @@ const ShowButton = styled.button<{ $isOpen?: boolean }>`
 
   &:hover {
     background-color: ${({ $isOpen }) =>
-      $isOpen ? "#45a049" : "#500505"}; /* Ciemniejszy zielony na hover */
+      $isOpen ? "#45a049" : "#e10e0e"}; /* Ciemniejszy zielony na hover */
   }
-
   &:focus {
     outline: none; /* Usuwamy domyślną obramowanie focus */
   }
