@@ -12,7 +12,7 @@ export default function LockerItem({ locker }: { locker: LockerType }) {
     setHidden(false);
     setTimeout(() => {
       setHidden(true);
-    }, 5000);
+    }, 8000);
   };
 
   return (
