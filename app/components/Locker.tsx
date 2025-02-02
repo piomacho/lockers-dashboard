@@ -67,7 +67,7 @@ const ShowButton = styled.button<{ $isOpen?: boolean }>`
 
   &:hover {
     background-color: ${({ $isOpen }) =>
-      $isOpen ? "#45a049" : "#500505"}, ; /* Ciemniejszy zielony na hover */
+      $isOpen ? "#45a049" : "#500505"}; /* Ciemniejszy zielony na hover */
   }
 
   &:focus {
